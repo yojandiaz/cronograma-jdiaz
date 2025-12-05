@@ -167,3 +167,47 @@ setInterval(async ()=>{
     }
   });
 }, 60*1000); // revisar cada minuto
+// ----------------------
+// NOTIFICACIÓN CADA HORA
+// ----------------------
+
+// Archivo de sonido (debes subir este archivo a tu proyecto)
+const sonidoNotificacion = new Audio("notificacion.mp3");
+
+// Esta función revisa si hay actividades pendientes HOY
+async function revisarPendientesDelDia() {
+    const hoy = new Date().toISOString().split("T")[0];
+
+    // Obtener actividades del backend / Firestore / JSON
+    const actividades = await obtenerActividades(); // <--- YA EXISTE EN TU CÓDIGO
+
+    // Filtrar actividades del día
+    const pendientes = actividades.filter(a => a.fecha === hoy && !a.completado);
+
+    // Si hay pendientes → notificar
+    if (pendientes.length > 0) {
+        mostrarNotificacion("Actividades de hoy", "Tienes actividades pendientes por realizar");
+        sonidoNotificacion.play(); // 🔊 Sonido
+    }
+}
+
+// Función para mostrar notificación
+function mostrarNotificacion(titulo, mensaje) {
+    if (Notification.permission === "granted") {
+        new Notification(titulo, {
+            body: mensaje,
+            icon: "icono.png" // opcional
+        });
+    }
+}
+
+// Pedir permiso al usuario
+Notification.requestPermission().then(permission => {
+    console.log("Permiso de notificación:", permission);
+});
+
+// Ejecutar revisión **cada hora**
+setInterval(() => {
+    revisarPendientesDelDia();
+}, 60 * 60 * 1000); // 1 hora (en milisegundos)
+  
