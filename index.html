@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>J.Diaz.eu — Cronograma</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2ecc71">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">J.Diaz.eu</div>
+    <div class="subtitle">Cronograma Profesional — 2026</div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Agregar actividad</h2>
+      <label>Nombre</label>
+      <input id="inputNombre" placeholder="Ej: Revisión eléctrica Etapa II">
+      <label>Etapa / Zona</label>
+      <select id="selectZona">
+        <option>Etapa I</option><option>Etapa II</option><option>Etapa III</option><option>Etapa IV</option><option>Copropiedad Zona Franca Cauca</option>
+      </select>
+      <label>Fecha</label>
+      <input id="inputFecha" type="date">
+      <label>Hora</label>
+      <input id="inputHora" type="time">
+      <div class="row">
+        <button id="btnGuardar">Guardar</button>
+        <button id="btnLimpiar" class="ghost">Limpiar todo</button>
+      </div>
+      <p class="note">Permite notificaciones cuando el navegador lo solicite.</p>
+    </section>
+
+    <section class="card">
+      <h2>Actividades</h2>
+      <div id="filtros" class="row">
+        <select id="filtroEstado">
+          <option value="all">Todas</option>
+          <option value="pending">Pendientes</option>
+          <option value="done">Completadas</option>
+          <option value="late">Retrasadas</option>
+        </select>
+      </div>
+      <div id="lista"></div>
+    </section>
+  </main>
+
+  <audio id="sound" src="alarm.mp3" preload="auto"></audio>
+
+  <!-- Firebase compat SDKs (fácil integración). Reemplaza con modular si prefieres. -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
